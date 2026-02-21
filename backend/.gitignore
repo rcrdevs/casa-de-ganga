@@ -1,0 +1,9 @@
+kripta-efce5-firebase-adminsdk-fbsvc-eb35925f94.json
+node_modules/
+.env
+.env.local
+.env.development
+.env.production
+dist/
+build/
+.DS_Store

@@ -1,0 +1,36 @@
+{
+  "name": "catalogo",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/league-gothic": "^5.2.8",
+    "@fontsource/cinzel-decorative": "^5.2.8",
+    "@fontsource/creepster": "^5.2.7",
+    "@fontsource/old-standard-tt": "^5.2.8",
+    "@fontsource/space-grotesk": "^5.2.10",
+    "@fontsource/unifrakturcook": "^5.0.14",
+    "@fontsource/unifrakturmaguntia": "^5.2.8",
+    "express-rate-limit": "^8.2.1",
+    "firebase": "^12.9.0",
+    "firebase-admin": "^13.6.1",
+    "framer-motion": "^10.12.16",
+    "google-auth-library": "^10.5.0",
+    "mercadopago": "^2.12.0",
+    "nodemailer": "^8.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
+    "react-router-dom": "^7.13.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "vite": "^7.1.7"
+  }
+}
