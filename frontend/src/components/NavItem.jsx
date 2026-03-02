@@ -8,7 +8,7 @@ export const NavItem = ({ children, targetId }) => (
     }}
   >
     <span className="relative z-10">{children}</span>
-    {/* Efeito esfumaçado no hover */}
+    {/* Efeito esfumaÃ§ado no hover */}
     <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md"></span>
   </a>
 );

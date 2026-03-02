@@ -17,7 +17,7 @@ import paymentRoutes from './routes/payment.js';
 
 const app = express();
 
-// Segurança
+// Segurança - Corrigido problema de chaves duplicadas no CSP
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -26,9 +26,9 @@ app.use(helmet({
         "'self'", 
         "https://apis.google.com",
         "https://*.firebaseapp.com",
-        "https://http2.mlstatic.com",      // domínio dos bricks
-        "https://api.mercadopago.com",     // api do MP
-        "https://www.mercadopago.com.br",  // checkout
+        "https://http2.mlstatic.com",
+        "https://api.mercadopago.com",
+        "https://www.mercadopago.com.br",
         ...(config.nodeEnv === 'development' ? ["'unsafe-eval'"] : [])
       ],
       connectSrc: [
@@ -36,32 +36,23 @@ app.use(helmet({
         config.frontendUrl,
         "https://identitytoolkit.googleapis.com",
         "https://securetoken.googleapis.com",
-        "https://api.mercadopago.com",      // para requisições da SDK
-        "https://api.mercadolibre.com"      // para tracks (opcional)
+        "https://api.mercadopago.com",
+        "https://api.mercadolibre.com"
       ],
       frameSrc: [
         "'self'", 
         "https://*.firebaseapp.com",
-        "https://www.mercadopago.com.br"    // para iframes do checkout
+        "https://www.mercadopago.com.br"
       ],
       imgSrc: [
         "'self'", 
         "data:", 
         "https:", 
         "https://*.googleusercontent.com",
-        "https://http2.mlstatic.com"        // imagens dos métodos
+        "https://http2.mlstatic.com"
       ],
-      // Em produção, idealmente remover 'unsafe-inline' usando nonces, mas manteremos por enquanto
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      imgSrc: ["'self'", "data:", "https:", "https://*.googleusercontent.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      connectSrc: [
-        "'self'",
-        config.frontendUrl,
-        "https://identitytoolkit.googleapis.com",
-        "https://securetoken.googleapis.com"
-      ],
-      frameSrc: ["'self'", "https://*.firebaseapp.com"]
     }
   },
   crossOriginEmbedderPolicy: false,
@@ -87,7 +78,7 @@ app.set('trust proxy', 1);
 app.use(express.json({
   limit: '1mb',
   verify: (req, res, buf) => {
-    req.rawBuffer = buf; // guarda o buffer bruto para verificação de webhook
+    req.rawBuffer = buf; // Guarda o buffer bruto para verificação do webhook do Mercado Pago
   }
 }));
 
@@ -102,7 +93,7 @@ app.use('/payments', paymentRoutes);
 
 // Rota de teste
 app.get('/', (req, res) => {
-  res.send('Backend Kripta Haus');
+  res.send('Backend Casa de Ganga');
 });
 
 // Middleware de erro (deve ser o último)

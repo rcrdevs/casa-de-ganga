@@ -12,8 +12,8 @@ export const produtos = [
   },
   {
     id: 2,
-    nome: 'Bíblia Sagrada (Capa marrom)',
-    descricao: 'Edição de estudo, capa em couro marrom, com índice e referências.',
+    nome: 'Opt 1',
+    descricao: '',
     imagens: [
       '/catalogo/biblia-1.png',
       '/catalogo/biblia-2.png',
@@ -42,8 +42,8 @@ export const produtos = [
   },
   {
     id: 5,
-    nome: 'Camiseta "Fé"',
-    descricao: 'Camiseta 100% algodão com estampa de cruz e frase "Minha fé".',
+    nome: 'Camiseta',
+    descricao: 'Camiseta 100% algodão com estampa de cruz e frase.',
     imagens: [
       '/catalogo/camiseta-fe-1.png',
       '/catalogo/camiseta-fe-2.png',

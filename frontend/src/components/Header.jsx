@@ -1,6 +1,8 @@
 // src/components/Header.jsx
 import { motion } from 'framer-motion';
 import { NavItem } from './NavItem';
+// Importação da logo (certifique-se de que o caminho está correto)
+import logoKripta from '../assets/casa-de-ganga.png';
 
 export const Header = ({
   token,
@@ -12,19 +14,26 @@ export const Header = ({
   cartTotalItems
 }) => (
   <motion.header
-    className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-gray-800 bg-casa-black/90"
+    // Fundo preto (ganga-black) com borda cinza escura
+    className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-ganga-gray bg-ganga-black/95 shadow-md"
     initial={{ y: -80, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
   >
-    <div className="container mx-auto px-8 py-4 flex justify-between items-center">
+    <div className="container mx-auto px-6 md:px-8 py-4 flex justify-between items-center">
+      
+      {/* Logo no lugar do texto */}
       <a
         href="#hero"
-        className="text-2xl font-serif font-bold text-casa-red hover:text-casa-red/80 transition-colors"
+        className="flex items-center transition-transform hover:scale-105"
       >
-        Casa de Ganga
+        <img 
+          src={logoKripta} 
+          alt="Logo Casa de Ganga" 
+          className="h-10 md:h-12 w-auto object-contain" 
+        />
       </a>
 
-      <div className="hidden md:flex gap-8 text-sm uppercase tracking-widest">
+      <div className="hidden md:flex gap-8 text-sm uppercase tracking-widest text-ganga-silver">
         <NavItem targetId="catalogo">Catálogo</NavItem>
         <NavItem targetId="sobre">Sobre</NavItem>
         <NavItem targetId="footer">Contato</NavItem>
@@ -33,7 +42,8 @@ export const Header = ({
       <div className="flex items-center gap-3">
         <button
           onClick={openCart}
-          className="text-xs border border-gray-700 px-3 py-1 rounded text-gray-300 hover:bg-casa-red/20 hover:border-casa-red transition-all duration-300 relative overflow-hidden group"
+          // Estilização atualizada para o hover vermelho escuro
+          className="text-xs border border-ganga-gray px-4 py-2 rounded text-ganga-white hover:bg-ganga-red hover:border-ganga-red-light transition-all duration-300 relative overflow-hidden group"
         >
           <span className="relative z-10">Carrinho ({cartTotalItems})</span>
           <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md"></span>
@@ -42,7 +52,7 @@ export const Header = ({
         {token ? (
           <button
             onClick={handleLogout}
-            className="text-xs border border-gray-700 px-3 py-1 rounded text-gray-300 hover:bg-casa-red/20 hover:border-casa-red transition-all duration-300 relative overflow-hidden group"
+            className="text-xs border border-ganga-gray px-4 py-2 rounded text-ganga-white hover:bg-ganga-red hover:border-ganga-red-light transition-all duration-300 relative overflow-hidden group"
           >
             <span className="relative z-10">Logout</span>
             <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md"></span>
@@ -50,7 +60,7 @@ export const Header = ({
         ) : (
           <button
             onClick={() => setShowLogin(true)}
-            className="text-xs border border-gray-700 px-3 py-1 rounded text-gray-300 hover:bg-casa-red/20 hover:border-casa-red transition-all duration-300 relative overflow-hidden group"
+            className="text-xs border border-ganga-gray px-4 py-2 rounded text-ganga-white hover:bg-ganga-red hover:border-ganga-red-light transition-all duration-300 relative overflow-hidden group"
           >
             <span className="relative z-10">Login</span>
             <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md"></span>
@@ -60,7 +70,7 @@ export const Header = ({
         {token && (
           <button
             onClick={onOrdersClick}
-            className="text-xs border border-gray-700 px-3 py-1 rounded text-gray-300 hover:bg-casa-red/20 hover:border-casa-red transition-all duration-300 relative overflow-hidden group"
+            className="text-xs border border-ganga-gray px-4 py-2 rounded text-ganga-white hover:bg-ganga-red hover:border-ganga-red-light transition-all duration-300 relative overflow-hidden group"
           >
             <span className="relative z-10">Meus Pedidos</span>
             <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md"></span>
