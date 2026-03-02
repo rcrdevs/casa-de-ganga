@@ -1,3 +1,4 @@
+// src/pages/Home.jsx
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -49,7 +50,7 @@ export function Home() {
 
   const totalItems = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
-  // AutenticaÃ§Ã£o
+  // Autenticação
   const [token, setToken] = useState(localStorage.getItem('accessToken'));
   const [showLogin, setShowLogin] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
@@ -67,7 +68,7 @@ export function Home() {
   const [shippingPrazo, setShippingPrazo] = useState(null);
   const [shippingLoading, setShippingLoading] = useState(false);
 
-  // Modal de trocas/devoluÃ§Ãµes
+  // Modal de trocas/devoluções
   const [showReturnModal, setShowReturnModal] = useState(false);
 
   // Tema e produto selecionado
@@ -77,7 +78,7 @@ export function Home() {
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const currentOrder = useRef({ id: null, total: 0, initPoint: null });
 
-  // FunÃ§Ã£o para esqueci senha
+  // Função para esqueci senha
   const handleForgotPassword = () => {
     setShowLogin(false);
     navigate('/forgot-password');
@@ -100,7 +101,7 @@ export function Home() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     setToken(null);
-    showToast('SessÃ£o encerrada', 'info');
+    showToast('Sessão encerrada', 'info');
   };
 
   // Buscar pedidos
@@ -111,20 +112,20 @@ export function Home() {
       setUserOrders(data);
       setShowOrders(true);
     } catch (err) {
-      showToast('Erro ao carregar pedidos: SessÃ£o expirada, faÃ§a o login novamente.', 'error');
+      showToast('Erro ao carregar pedidos: Sessão expirada, faça o login novamente.', 'error');
     }
   };
 
   // Checkout
   const handleCheckout = async (couponCode = null) => {
     if (!token) {
-      showToast('âš ï¸ FaÃ§a login para finalizar!', 'error');
+      showToast('?? Faça login para finalizar!', 'error');
       setShowLogin(true);
       return;
     }
 
     if (!shippingData.cep || !shippingData.endereco || !shippingData.numero) {
-      showToast('âš ï¸ Preencha os dados de entrega!', 'error');
+      showToast('?? Preencha os dados de entrega!', 'error');
       return;
     }
 
@@ -149,21 +150,19 @@ export function Home() {
 
   const handlePaymentSuccess = () => {
     setShowCheckoutModal(false);
-    showToast('Pagamento aprovado! Seu pedido serÃ¡ processado.', 'success');
+    showToast('Pagamento aprovado! Seu pedido será processado.', 'success');
     clearCart();
   };
 
-  // CÃ¡lculo do subtotal
+  // Cálculo do subtotal
   const subtotal = cart.reduce(
     (total, item) => total + (Number(item.preco) || 0) * (Number(item.quantity) || 1),
     0
   );
 
   return (
-    // Removido bg-gray-950 (que causava o fundo azul). Trocado por bg-ganga-light.
     <div className="min-h-screen relative overflow-hidden font-['Space Grotesk'] bg-ganga-light text-ganga-black">
       
-      {/* Elementos decorativos de fundo corrigidos (Removido verde/azul, deixado apenas um vermelho super sutil) */}
       <div className="fixed inset-0 pointer-events-none opacity-10">
         <div className="absolute top-20 left-10 w-96 h-96 bg-ganga-red rounded-full mix-blend-multiply filter blur-3xl"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-ganga-black rounded-full mix-blend-multiply filter blur-3xl"></div>
@@ -226,29 +225,29 @@ export function Home() {
         />
       </ErrorBoundary>
 
-      {/* Hero com banner */}
       <section id="hero" className="relative z-10 pt-24">
         <div className="h-[85vh] md:h-[90vh] relative">
           <HeroBannerSlider />
         </div>
       </section>
 
-      {/* CatÃ¡logo */}
+      {/* Catálogo */}
       <section id="catalogo" className="py-20 px-8 md:px-16 lg:px-32 relative z-10">
         <h2 className="text-4xl md:text-5xl mb-12 text-center font-['Cinzel Decorative'] font-bold text-ganga-red">
           Nossos Produtos
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* ALTERAÇÃO 1: Mais itens por linha (sm:2, md:3, lg:4) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {produtos.map((produto) => (
             <motion.div
               key={produto.id}
-              // Cards totalmente escuros para contrastar com o fundo claro
-              className="rounded-xl overflow-hidden shadow-2xl bg-ganga-black border border-ganga-gray hover:border-ganga-red-light transition-colors"
+              className="rounded-xl overflow-hidden shadow-2xl bg-ganga-black border border-ganga-gray hover:border-ganga-red-light transition-colors flex flex-col"
               whileHover={{ scale: 1.02 }}
             >
+              {/* ALTERAÇÃO 2: aspect-square para deixar a imagem 1080x1080 perfeita e w-full */}
               <div
-                className="h-64 cursor-pointer overflow-hidden relative bg-[#0a0a0a]"
+                className="aspect-square w-full cursor-pointer overflow-hidden relative bg-[#0a0a0a]"
                 onClick={() => setSelectedProduct(produto)}
               >
                 <img
@@ -258,16 +257,18 @@ export function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 hover:opacity-100 transition-opacity" />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-white mb-2 font-title tracking-wider">{produto.nome}</h3>
-                <p className="text-gray-400 text-sm mb-4 line-clamp-2">{produto.descricao}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-white tracking-wider">
+              <div className="p-5 flex flex-col flex-grow justify-between">
+                <div>
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-2 font-title tracking-wider">{produto.nome}</h3>
+                  <p className="text-gray-400 text-xs md:text-sm mb-4 line-clamp-2">{produto.descricao}</p>
+                </div>
+                <div className="flex justify-between items-center mt-auto pt-2">
+                  <span className="text-xl md:text-2xl font-bold text-white tracking-wider">
                     R$ {produto.preco.toFixed(2)}
                   </span>
                   <button
                     onClick={() => handleAddToCart(produto)}
-                    className="px-6 py-2 bg-ganga-red hover:bg-ganga-red-light text-white rounded text-sm font-bold uppercase tracking-widest transition-all duration-300 shadow-[0_0_10px_rgba(0,0,0,0.8)]"
+                    className="px-4 md:px-6 py-2 bg-ganga-red hover:bg-ganga-red-light text-white rounded text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300 shadow-[0_0_10px_rgba(0,0,0,0.8)]"
                   >
                     Adicionar
                   </button>
@@ -278,27 +279,26 @@ export function Home() {
         </div>
       </section>
 
-      {/* Sobre nÃ³s */}
+      {/* Sobre nós */}
       <section id="sobre" className="py-24 px-8 relative bg-transparent">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6 text-ganga-black font-['Cinzel Decorative']">
             <span className="text-ganga-red">Sobre</span> a Casa de Ganga
           </h2>
           <p className="text-lg text-gray-800 mb-8 leading-relaxed font-medium">
-            A Casa de Ganga Ã© um espaÃ§o dedicado Ã s tradiÃ§Ãµes de matriz africana, especialmente Umbanda e Quimbanda. 
-            Oferecemos artigos sagrados como velas, imagens, ferramentas de orixÃ¡s, guias, defumaÃ§Ãµes e muito mais, 
-            sempre com respeito e axÃ©. Cada produto Ã© escolhido com cuidado para auxiliar em seus rituais e fortalecer 
-            sua fÃ©.
+            A Casa de Ganga é um espaço dedicado às tradições de matriz africana, especialmente Umbanda e Quimbanda. 
+            Oferecemos artigos sagrados como velas, imagens, ferramentas de orixás, guias, defumações e muito mais, 
+            sempre com respeito e axé. Cada produto é escolhido com cuidado para auxiliar em seus rituais e fortalecer 
+            sua fé.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
             <div className="p-6 bg-ganga-black rounded-lg shadow-xl border-t-4 border-ganga-red">
-              <h3 className="text-xl font-semibold text-white mb-2">AxÃ©</h3>
-              <p className="text-gray-400">Produtos energizados e vindos de fornecedores de confianÃ§a.</p>
+              <h3 className="text-xl font-semibold text-white mb-2">Axé</h3>
+              <p className="text-gray-400">Produtos energizados e vindos de fornecedores de confiança.</p>
             </div>
-            {/* Removida a borda verde, trocada por cinza/prata ou vermelho */}
             <div className="p-6 bg-ganga-black rounded-lg shadow-xl border-t-4 border-ganga-gray">
-              <h3 className="text-xl font-semibold text-white mb-2">TradiÃ§Ã£o</h3>
-              <p className="text-gray-400">Conhecimento passado de geraÃ§Ã£o em geraÃ§Ã£o.</p>
+              <h3 className="text-xl font-semibold text-white mb-2">Tradição</h3>
+              <p className="text-gray-400">Conhecimento passado de geração em geração.</p>
             </div>
             <div className="p-6 bg-ganga-black rounded-lg shadow-xl border-t-4 border-ganga-red">
               <h3 className="text-xl font-semibold text-white mb-2">Respeito</h3>
@@ -308,7 +308,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* Footer - Corrigido para Preto puro */}
+      {/* Footer */}
       <footer id="footer" className="py-16 bg-ganga-black text-gray-400 border-t-2 border-ganga-red-light">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-8 text-white font-['Cinzel Decorative']">Contato</h2>
@@ -341,17 +341,17 @@ export function Home() {
               onClick={() => setShowReturnModal(true)}
               className="text-sm text-gray-500 hover:text-white transition-colors underline underline-offset-4"
             >
-              Trocas e DevoluÃ§Ãµes
+              Trocas e Devoluções
             </button>
           </div>
           <div className="text-sm">
             <p>&copy; {new Date().getFullYear()} Casa de Ganga - Todos os direitos reservados.</p>
-            <p className="mt-2 text-xs text-gray-600">AxÃ© para todos</p>
+            <p className="mt-2 text-xs text-gray-600">Axé para todos</p>
           </div>
         </div>
       </footer>
 
-      {/* Modal de Trocas/DevoluÃ§Ãµes */}
+      {/* Modal de Trocas/Devoluções */}
       <AnimatePresence>
         {showReturnModal && (
           <motion.div
@@ -372,20 +372,20 @@ export function Home() {
                 onClick={() => setShowReturnModal(false)}
                 className="absolute top-4 right-4 text-gray-500 hover:text-ganga-red"
               >
-                âœ•
+                ?
               </button>
-              <h2 className="text-3xl font-bold text-ganga-red mb-6 text-center">Trocas e DevoluÃ§Ãµes</h2>
+              <h2 className="text-3xl font-bold text-ganga-red mb-6 text-center">Trocas e Devoluções</h2>
               <div className="text-gray-400 space-y-4 text-sm">
-                <p>â€¢ O prazo para manifestaÃ§Ã£o de troca ou arrependimento Ã© de 7 dias apÃ³s a entrega.</p>
-                <p>â€¢ O produto deve retornar em sua embalagem original, sem sinais de uso.</p>
-                <p>â€¢ Entre em contato via WhatsApp ou e-mail para iniciar o processo.</p>
+                <p>? O prazo para manifestação de troca ou arrependimento é de 7 dias após a entrega.</p>
+                <p>? O produto deve retornar em sua embalagem original, sem sinais de uso.</p>
+                <p>? Entre em contato via WhatsApp ou e-mail para iniciar o processo.</p>
               </div>
               <form action="https://formsubmit.co/contato@casadeganga.com" method="POST" className="mt-6 space-y-4">
                 <input type="hidden" name="_captcha" value="false" />
                 <input
                   type="text"
                   name="pedido"
-                  placeholder="NÃºmero do pedido"
+                  placeholder="Número do pedido"
                   className="w-full bg-black border border-ganga-gray rounded-lg p-3 text-sm text-white focus:outline-none focus:border-ganga-red"
                   required
                 />
@@ -399,7 +399,7 @@ export function Home() {
                   type="submit"
                   className="w-full bg-ganga-red hover:bg-ganga-red-light text-white py-3 rounded-lg font-semibold uppercase tracking-widest transition-colors"
                 >
-                  Enviar solicitaÃ§Ã£o
+                  Enviar solicitação
                 </button>
               </form>
             </motion.div>

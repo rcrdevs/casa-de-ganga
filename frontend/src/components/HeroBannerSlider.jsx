@@ -46,14 +46,14 @@ export const HeroBannerSlider = () => {
             {/* Gradiente preto para escurecer a imagem e destacar o botão */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40 pointer-events-none" />
             
-            {/* Botão Modificado */}
+            {/* Botão Modificado - Reduzido o padding e tamanho da fonte */}
             <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex justify-center z-20">
               <button
-                className="px-12 py-4 bg-ganga-red hover:bg-ganga-red-light text-white rounded-md transition-all duration-300 relative overflow-hidden group shadow-[0_0_15px_rgba(0,0,0,0.8)]"
+                className="px-8 py-3 bg-ganga-red hover:bg-ganga-red-light text-white rounded-md transition-all duration-300 relative overflow-hidden group shadow-[0_0_15px_rgba(0,0,0,0.8)]"
                 onClick={() => handleCTA(banner.targetId)}
               >
                 {/* Fonte alterada para Draculitos e texto para "Ver catálogo" */}
-                <span className="relative z-10 font-draculitos text-2xl md:text-3xl tracking-widest uppercase">
+                <span className="relative z-10 font-draculitos text-lg md:text-xl tracking-widest uppercase">
                   Ver catálogo
                 </span>
                 <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></span>

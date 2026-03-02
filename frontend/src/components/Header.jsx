@@ -1,7 +1,7 @@
 // src/components/Header.jsx
 import { motion } from 'framer-motion';
 import { NavItem } from './NavItem';
-// Importação da logo (certifique-se de que o caminho está correto)
+// ImportaÃ§Ã£o da logo (certifique-se de que o caminho estÃ¡ correto)
 import logoKripta from '../assets/casa-de-ganga.png';
 
 export const Header = ({
@@ -42,7 +42,7 @@ export const Header = ({
       <div className="flex items-center gap-3">
         <button
           onClick={openCart}
-          // Estilização atualizada para o hover vermelho escuro
+          // EstilizaÃ§Ã£o atualizada para o hover vermelho escuro
           className="text-xs border border-ganga-gray px-4 py-2 rounded text-ganga-white hover:bg-ganga-red hover:border-ganga-red-light transition-all duration-300 relative overflow-hidden group"
         >
           <span className="relative z-10">Carrinho ({cartTotalItems})</span>
